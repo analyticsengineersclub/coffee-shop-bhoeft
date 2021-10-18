@@ -1,3 +1,11 @@
+-- models/customers.sql config block
+{{
+    config(
+        materialized='table'
+    )
+}}
+
+
 WITH customers AS(
 
 SELECT 
