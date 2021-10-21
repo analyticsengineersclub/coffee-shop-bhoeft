@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: customers
+    description: Customer attributes plus first order date and total orders count
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: first_order_at
+        description: date (UTC) of first order
+      - name: number_of_orders
+        description: total order count
