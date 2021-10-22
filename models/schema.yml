@@ -14,7 +14,7 @@ models:
         description: total order count
   
   - name: new_weekly_customers
-    description: '{{ docs('new_weekly_customers') }}'
+    description: '{{ doc("new_weekly_customers") }}'  # <- needs to be doc() not docs() !@$#@!#!$#!#$
     columns:
       - name: signup_week
         description: a truncated date (Monday)

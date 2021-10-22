@@ -1,4 +1,3 @@
-# project level doc block: https://docs.getdbt.com/docs/building-a-dbt-project/documentation#custom-project-level-overviews
 {% docs __coffee_shop__ %}
 
 # Coffee Shop (Lorem Ipsum)
@@ -9,8 +8,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fermentum phare
 
 {% enddocs %}
 
-{{% docs new_weekly_customers %}}
+{% docs new_weekly_customers %}
 
 This view contains new customer counts at a weekly data granularity.
 
-
+{% enddocs %}
