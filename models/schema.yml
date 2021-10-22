@@ -12,3 +12,12 @@ models:
         description: date (UTC) of first order
       - name: number_of_orders
         description: total order count
+  
+  - name: new_weekly_customers
+    description: View of new customer counts by week
+    columns:
+      - name: signup_week
+        description: a truncated date (Monday)
+        tests:
+          - unique
+          - not_null
