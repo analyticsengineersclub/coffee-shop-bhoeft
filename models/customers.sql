@@ -12,7 +12,7 @@ SELECT
     id as customer_id, 
     name, 
     email
-FROM `analytics-engineers-club.coffee_shop.customers`
+FROM {{ sources('coffee_shop', 'customers') }} -- to create DAG lineage from this model to source table
 
 )
 
@@ -21,7 +21,7 @@ SELECT
     customer_id, 
     MIN(created_at) AS first_order_at, 
     COUNT(id) AS number_of_orders
-FROM `analytics-engineers-club.coffee_shop.orders`
+FROM {{ source('coffee_shop', 'orders') }}
 GROUP BY customer_id
 
 )
