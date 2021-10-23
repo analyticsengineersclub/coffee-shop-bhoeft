@@ -16,10 +16,11 @@ sources:
           - name: id
             tests:
               - unique
-              - not null
+              - not_null
           - name: customer_id
             tests:
-              - relationships:  # ref integrity: each orders.customer_id should exist in customers.id column
+              - not_null
+              - relationships:  # referential integrity. orders.customer_id should exist in customers.id
                   to: ref('customers')
                   field: id
 
@@ -38,7 +39,7 @@ models:
         description: total order count
   
   - name: new_weekly_customers
-    description: '{{ doc("new_weekly_customers") }}'  # <- needs to be doc() not docs() !@$#@!#!$#!#$
+    description: '{{ doc("new_weekly_customers") }}'  # <- needs to be doc() not docs()
     columns:
       - name: signup_week
         description: a truncated date (Monday)
