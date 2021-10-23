@@ -21,7 +21,7 @@ sources:
             tests:
               - not_null
               - relationships:  # referential integrity. orders.customer_id should exist in customers.id
-                  to: ref('customers')
+                  to: source('coffee_shop', 'customers')
                   field: id
 
 
