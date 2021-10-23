@@ -1,5 +1,29 @@
 version: 2
 
+sources:
+  - name: coffee_shop
+    project: analytics-engineers-club
+    tables:
+      - name: customers
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: orders
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not null
+          - name: customer_id
+            tests:
+              - relationships:  # ref integrity: each orders.customer_id should exist in customers.id column
+                  to: ref('customers')
+                  field: id
+
+
 models:
   - name: customers
     description: Customer attributes plus first order date and total orders count
