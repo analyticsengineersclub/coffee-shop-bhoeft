@@ -1,0 +1,48 @@
+version: 2
+
+sources:
+  - name: coffee_shop
+    project: analytics-engineers-club
+    tables:
+      - name: customers
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: orders
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            tests:
+              - not_null
+              - relationships:  # referential integrity. orders.customer_id should exist in customers.id
+                  to: source('coffee_shop', 'customers')
+                  field: id
+
+
+models:
+  - name: customers
+    description: Customer attributes plus first order date and total orders count
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: first_order_at
+        description: date (UTC) of first order
+      - name: number_of_orders
+        description: total order count
+  
+  - name: new_weekly_customers
+    description: '{{ doc("new_weekly_customers") }}'  # <- needs to be doc() not docs()
+    columns:
+      - name: signup_week
+        description: a truncated date (Monday)
+        tests:
+          - unique
+          - not_null
