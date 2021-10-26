@@ -5,11 +5,11 @@ with source as(
 )
 
 , renamed as(
-    SELECT 
+    from 
         id as customer_id, 
         name, 
         email
-    FROM source
+    from source
 )
 
 select * from renamed
