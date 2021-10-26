@@ -8,7 +8,7 @@ with source as(
 
     select
         id as order_id,
-        create_at,
+        created_at,
         customer_id,
         total as total_sale,
         address,
