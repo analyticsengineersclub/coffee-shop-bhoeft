@@ -12,7 +12,7 @@ SELECT
     id as customer_id, 
     name, 
     email
-FROM {{ source('coffee_shop', 'customers') }} -- creates DAG dependency b/w this model & source table for docs!
+FROM {{ ref('stg_coffee_shop__customers') }}
 
 )
 
@@ -21,7 +21,7 @@ SELECT
     customer_id, 
     MIN(created_at) AS first_order_at, 
     COUNT(id) AS number_of_orders
-FROM {{ source('coffee_shop', 'orders') }}
+FROM {{ ref('stg_coffee_shop__orders') }}
 GROUP BY customer_id
 
 )
