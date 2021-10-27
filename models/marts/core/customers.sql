@@ -9,7 +9,7 @@
 WITH customers AS(
 
 SELECT 
-    id as customer_id, 
+    customer_id, 
     name, 
     email
 FROM {{ ref('stg_coffee_shop__customers') }}
@@ -20,7 +20,7 @@ FROM {{ ref('stg_coffee_shop__customers') }}
 SELECT 
     customer_id, 
     MIN(created_at) AS first_order_at, 
-    COUNT(id) AS number_of_orders
+    COUNT(order_id) AS number_of_orders
 FROM {{ ref('stg_coffee_shop__orders') }}
 GROUP BY customer_id
 
