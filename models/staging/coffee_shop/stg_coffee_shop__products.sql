@@ -8,8 +8,8 @@ with source as(
     
     select
         id as product_id,
-        name,
-        category,
+        name as product_name,
+        category as product_category,
         created_at
     from source
 
