@@ -9,7 +9,7 @@ with source as(
     select 
         id as product_price_id,
         product_id,
-        price,
+        price as product_price,
         created_at,
         ended_at
     from source
