@@ -9,8 +9,8 @@ with source as(
 
     select 
         id as customer_id, 
-        name, 
-        email
+        name as customer_name, 
+        email as customer_email
     from source
 
 )
