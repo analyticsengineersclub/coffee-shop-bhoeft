@@ -8,9 +8,9 @@ with source as(
 
     select
         id as order_id,
-        created_at,
+        created_at as ordered_at,
         customer_id,
-        total as total_sale,
+        total,
         address,
         state,
         zip
