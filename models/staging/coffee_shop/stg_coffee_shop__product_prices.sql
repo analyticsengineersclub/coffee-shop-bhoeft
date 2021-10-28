@@ -10,8 +10,8 @@ with source as(
         id as product_price_id,
         product_id,
         price as product_price,
-        created_at,
-        ended_at
+        created_at as price_created_at,
+        ended_at as price_ended_at
     from source
 
 )
