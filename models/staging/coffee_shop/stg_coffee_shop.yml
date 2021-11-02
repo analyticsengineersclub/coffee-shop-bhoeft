@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_coffee_shop__customers
+    description: '{{ doc("stg_customers") }}'
+  
+  - name: stg_coffee_shop__orders
+    description: '{{ doc("stg_orders") }}'
+  
+  - name: stg_coffee_shop__order_items
+    description: '{{ doc("stg_order_items") }}'
+  
+  - name: stg_coffee_shop_products
+    description: '{{ doc("stg_products") }}'
+  
+  - name: stg_coffee_shop_product_prices
+    description: '{{ doc("stg_product_prices") }}'

@@ -1,0 +1,75 @@
+version: 2
+
+sources:
+  - name: coffee_shop
+    description: '{{ doc("__src_coffee_shop__") }}'
+    project: analytics-engineers-club
+    tables:
+      - name: customers
+        description: '{{ doc("src_coffee_shop__customers") }}'
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: orders
+        description: '{{ doc("src_coffee_shop__orders") }}'
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            tests:
+              - not_null
+              - relationships:  # referential integrity. orders.customer_id should exist in customers.id
+                  to: source('coffee_shop', 'customers')
+                  field: id
+
+      - name: order_items
+        description: '{{ doc("src_coffee_shop__order_items") }}'
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: order_id
+            tests:
+              - relationships:  # order_items.order_id should exist in orders.id
+                  to: source('coffee_shop', 'orders')
+                  field: id
+          - name: product_id  # order_items.product_id should exist in product.id
+            tests:
+              - relationships:
+                  to: source('coffee_shop', 'products')
+                  field: id
+      
+      - name: products
+        description: '{{ doc("src_coffee_shop__products") }}'
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: name
+            tests:
+              - unique
+              - not_null
+          - name: category
+            tests:
+              - accepted_values:
+                  values: ['merch', 'brewing supplies', 'coffee beans']
+      
+      - name: product_prices
+        description: '{{ doc("src_coffee_shop__product_prices") }}'
+        columns: 
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: product_id
+            tests:
+              - relationships:  # product_prices.product_id should exist in product.id
+                  to: source('coffee_shop', 'products')
+                  field: id
