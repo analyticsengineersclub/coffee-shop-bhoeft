@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: web_tracking
+    description: '{{ doc("__src_web_tracking__") }}'
+    project: analytics-engineers-club
+    tables:
+      - name: pageviews
+        description: '{{ doc("src_web_tracking__pageviews") }}'
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
