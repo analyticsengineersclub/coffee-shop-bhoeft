@@ -21,3 +21,11 @@ models:
         tests:
           - unique
           - not_null
+
+  - name: pageviews
+    description: '{{ doc("pageviews") }}'
+    columns:
+      - name: pageview_id
+        tests:
+          - unique
+          - not_null
