@@ -1,19 +1,46 @@
-with sales_breakdown as(
-select
-    point_of_sale.ordered_at,
-    date_trunc(point_of_sale.ordered_at, day) as date_day,
-    date_trunc(point_of_sale.ordered_at, week) as date_week,
-    date_trunc(point_of_sale.ordered_at, month) as date_month,
-    point_of_sale.order_items_id,
-    point_of_sale.order_id,
-    point_of_sale.product_id,
-    point_of_sale.customer_id,
-    point_of_sale.customer_is_new,
-    product_at_sale.product_price,
-    product_at_sale.product_name,
-    product_at_sale.product_category
-from {{ ref('point_of_sale') }} point_of_sale
-left join {{ ref('product_at_sale') }} product_at_sale on point_of_sale.order_items_id = product_at_sale.order_items_id
+with point_of_sale as (
+
+    select * from {{ ref('point_of_sale') }}
+
 )
 
-select * from sales_breakdown
+, core_products as(
+
+    select * from {{ ref('products') }}
+
+)
+
+, core_customers as (
+
+    select * from {{ ref('customers') }}
+
+)
+
+, sales_breakdown as (
+
+    select
+        s.order_id,
+        s.product_id,
+        s.order_items_id,
+        s.customer_id,
+        s.ordered_at,
+        date_trunc(s.ordered_at, day) as ordered_at_day,
+        date_trunc(s.ordered_at, week) as ordered_at_week,
+        date_trunc(s.ordered_at, month) as ordered_at_month,
+        c.customer_name,
+        case 
+            when s.ordered_at = c.first_order_at then TRUE 
+            else FALSE
+        end as customer_is_new,
+        p.product_price,
+        p.product_category,
+        p.product_name
+    from point_of_sale s
+    inner join core_customers c on s.customer_id = c.customer_id
+    inner join core_products p on s.product_id = p.product_id
+        and s.ordered_at between p.price_created_at and p.price_ended_at
+
+) 
+
+select *
+from sales_breakdown
