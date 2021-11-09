@@ -21,7 +21,19 @@ models:
         tests:
           - unique
           - not_null
+  
+  - name: point_of_sale
+    description: '{{ doc("point_of_sale") }}' 
+    columns:
+      - name: order_items_id
+        description: unique order item in a customer order
+        tests:
+          - unique
+          - not_null
 
+  - name: products
+    description: '{{ doc("products") }}' 
+    
   - name: pageviews
     description: '{{ doc("pageviews") }}'
     columns:
