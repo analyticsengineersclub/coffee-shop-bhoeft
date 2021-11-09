@@ -33,3 +33,11 @@ models:
 
   - name: products
     description: '{{ doc("products") }}' 
+    
+  - name: pageviews
+    description: '{{ doc("pageviews") }}'
+    columns:
+      - name: pageview_id
+        tests:
+          - unique
+          - not_null
