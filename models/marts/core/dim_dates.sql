@@ -20,9 +20,9 @@ with deduplicated_days as(
 
     select 
         date_day,
-        date_trunc(date_day, week) as ordered_at_week,
-        date_trunc(date_day, month) as ordered_at_month,
-        date_trunc(date_day, year) as ordered_at_year
+        date_trunc(date_day, week) as date_week,
+        date_trunc(date_day, month) as date_month,
+        date_trunc(date_day, year) as date_year
     from deduplicated_days
 
 )
