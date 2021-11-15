@@ -22,7 +22,7 @@ with deduplicated_days as(
         date_day,
         date_trunc(date_day, week) as date_week,
         date_trunc(date_day, month) as date_month,
-        date_trunc(date_day, year) as date_year
+        extract(year from date_day) as date_year
     from deduplicated_days
 
 )
