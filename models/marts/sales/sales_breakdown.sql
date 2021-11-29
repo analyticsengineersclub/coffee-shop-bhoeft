@@ -24,9 +24,10 @@ with point_of_sale as (
         s.order_items_id,
         s.customer_id,
         s.ordered_at,
-        date_trunc(s.ordered_at, day) as ordered_at_day,
-        date_trunc(s.ordered_at, week) as ordered_at_week,
-        date_trunc(s.ordered_at, month) as ordered_at_month,
+        dd.date_day as ordered_at_day,
+        dd.date_week as ordered_at_week,
+        dd.date_month as ordered_at_month,
+        dd.date_year as ordered_at_year,
         c.customer_name,
         case 
             when s.ordered_at = c.first_order_at then TRUE 
@@ -39,6 +40,8 @@ with point_of_sale as (
     inner join core_customers c on s.customer_id = c.customer_id
     inner join core_products p on s.product_id = p.product_id
         and s.ordered_at between p.price_created_at and p.price_ended_at
+    left join {{ ref('dim_dates') }} dd on date_trunc(s.ordered_at, day) = dd.date_day
+
 
 ) 
 
