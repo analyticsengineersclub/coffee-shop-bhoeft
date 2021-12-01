@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: sales_breakdown
+    description: '{{ doc("sales_breakdown") }}'
+    columns:
+      - name: product_price
+        tests:
+          - is_positive
+  
+  - name: customer_weekly_ltv
+    description: '{{ doc("customer_weekly_ltv") }}'
+    columns:
+      - name: cumulative_revenue
+        tests:
+          - is_positive
