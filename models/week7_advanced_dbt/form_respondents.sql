@@ -1,4 +1,7 @@
-{{ config(materialized='incremental') }}
+{{ config(
+    materialized='incremental',
+    unique_key='github_username'
+) }}
 
 with source as (
     
@@ -9,9 +12,9 @@ with source as (
         -- 2. Is that database object a table?
         -- 3. Is this model configured with `materialized = 'incremental'`?
         -- 4. Was the `--full-refresh` flag passed to this `dbt run`? (More on this to come later)
-        -- Yes Yes Yes No == an incremental run
+        -- Yes Yes Yes No == an incremental run, else it creates or replace table run.
     {% if is_incremental() %}
-    where timestamp > (select max(last_form_entry) from {{ this }}) 
+    where timestamp > (select max(last_form_entry) from {{ this }})
     {% endif %}
 )
 
