@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: advanced_dbt_examples
+    description: '{{ doc("__advanced_dbt_examples__") }}'
+    project: analytics-engineers-club
+    tables:
+      - name: form_events
+        description: '{{ doc("form_events") }}'
