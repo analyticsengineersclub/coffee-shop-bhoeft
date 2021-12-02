@@ -1,9 +1,18 @@
-{{ config(materialized='table') }}
+{{ config(materialized='incremental') }}
 
 with source as (
     
-    select * from {{ source('advanced_dbt_examples', 'form_events') }}
-
+    select * 
+    from {{ source('advanced_dbt_examples', 'form_events') }}
+    -- What does is_incremental() do? Checks 4 things.
+        -- 1. Does this model already exist as an object in the database?
+        -- 2. Is that database object a table?
+        -- 3. Is this model configured with `materialized = 'incremental'`?
+        -- 4. Was the `--full-refresh` flag passed to this `dbt run`? (More on this to come later)
+        -- Yes Yes Yes No == an incremental run
+    {% if is_incremental() %}
+    where timestamp > (select max(last_form_entry) from {{ this }}) 
+    {% endif %}
 )
 
 , aggregated as (
